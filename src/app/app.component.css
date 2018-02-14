@@ -1,0 +1,8 @@
+.sidenav {
+  width: 200px;
+  height: 100%;
+  display: block;
+}
+.tab-filler {
+  flex-grow: 1;
+}

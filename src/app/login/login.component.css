@@ -1,0 +1,4 @@
+.mat-card, .mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+  padding: 0; 
+}

@@ -1,0 +1,23 @@
+<mat-card class="search-box">
+  <mat-card-content fxLayout="column">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="40" fxFlexOffset="30">
+        <input matInput placeholder="Username" [(ngModel)]="u" [formControl]="loginControl.controls['username']">
+        <mat-error *ngIf="loginControl.controls['username'].hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field fxFlex="40" fxFlexOffset="30">
+        <input matInput placeholder="Password" type="password" [(ngModel)]="p" [formControl]="loginControl.controls['password']">
+        <mat-error *ngIf="loginControl.controls['password'].hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button color="primary" mat-raised-button (click)="login()" [disabled]="!loginControl.valid">Login</button>
+    </div>
+  </mat-card-content>
+</mat-card>

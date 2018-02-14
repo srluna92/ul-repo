@@ -1,0 +1,19 @@
+<!-- <mat-card> -->
+  <mat-card-content>
+    <mat-form-field>
+      <mat-select placeholder="Company" [(ngModel)]="s.company">
+        <mat-option value=""></mat-option>
+        <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Type" [(ngModel)]="s.type">
+        <mat-option value=""></mat-option>
+        <mat-option *ngFor="let t of types" [value]="t" [innerHTML]="t"></mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Search</button>
+  </mat-card-actions>
+<!-- </mat-card> -->
