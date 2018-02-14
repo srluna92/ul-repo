@@ -1,0 +1,15 @@
+<mat-card-title></mat-card-title>
+<mat-card-content>
+  <mat-form-field>
+    <input placeholder="Company" matInput [matAutoComplete]="cAuto">
+    <mat-autocomplete #auto="cAuto">
+      <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Type" matInput [matAutoComplete]="tAuto">
+    <mat-autocomplete #auto="tAuto">
+      <mat-option *ngFor="let t of types" [value]="t" [innerHTML]="t"></mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-card-content>

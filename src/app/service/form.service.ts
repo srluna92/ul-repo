@@ -13,4 +13,10 @@ export class FormService {
       'password': ['', Validators.required]
     });
   }
+  newItemForm(): FormGroup  {
+    return this.fb.group({
+      'company': ['', Validators.required],
+      'type': ['', Validators.required]
+    });
+  }
 }
