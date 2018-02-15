@@ -12,6 +12,13 @@ import { FormService } from './service/form.service';
 import { LoginModule } from './login/login.module';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { SearchModule } from './search/search.module';
+import { AddModule } from './add/add.module';
+import { AuthService } from './service/auth.service';
+import { RouterModule, PreloadAllModules } from '@angular/router';
+import { routes } from './app.routes';
+import { AboutModule } from './about/about.module';
+import { PackModule } from './pack/pack.module';
+import { SettingsModule } from './settings/settings.module';
 
 
 @NgModule({
@@ -25,10 +32,15 @@ import { SearchModule } from './search/search.module';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
     LoginModule,
-    SearchModule
+    SearchModule,
+    AddModule,
+    AboutModule,
+    PackModule,
+    SettingsModule
   ],
-  providers: [FireService, FormService, AngularFirestore],
+  providers: [FireService, FormService, AngularFirestore, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

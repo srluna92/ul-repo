@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FireService } from '../service/fire.service';
 
 @Component({
   selector: 'app-search',
@@ -9,11 +10,23 @@ export class SearchComponent implements OnInit {
 
   companies: string[] = ['MLD', 'Katabatic'];
   types: string[];
-
+  gear: any[];
   s: any = {};
-  constructor() { }
+
+  columnHeader = [ 'company', 'type', 'name', 'weight', 'material' ];
+
+  constructor(
+    private fireService: FireService
+  ) { }
 
   ngOnInit() {
+    this.fireService.companies.asObservable().subscribe(c => this.columnHeader = c);
+    this.fireService.companies.asObservable().subscribe(t => this.types = t);
+    this.fireService.gear.asObservable().subscribe(g => {
+      this.gear = g;
+      console.log(g);
+    });
+    this.fireService.getGear();
   }
 
 }

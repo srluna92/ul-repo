@@ -1,39 +1,34 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { User } from '../model/user';
 import { FirebaseFirestore } from '@firebase/firestore-types';
-import * as firebase from 'firebase';
 
 @Injectable()
 export class FireService {
-  gear = new BehaviorSubject<any>([]);
-  user = new BehaviorSubject<User>(new User());
+  gear = new BehaviorSubject<any>(null);
+  types = new BehaviorSubject<string[]>([]);
+  weights = new BehaviorSubject<string[]>(null);
+  companies = new BehaviorSubject<string[]>([]);
 
   constructor(
     private fire: AngularFirestore,
   ) { }
 
-  login(u: string, p: string) {
-    firebase.auth().signInWithEmailAndPassword(u, p).then(s => {
-      console.log(s);
-    }).catch(e => {
-      console.log(e);
-    });
+  getCompanies(): void {
+    this.fire.collection('companies').valueChanges().subscribe((c: string[]) => this.companies.next(c));
   }
-
-  newUser(u: string, p: string) {
-    firebase.auth().createUserWithEmailAndPassword(u, p).then(s => {
-
-    }).catch(e => {
-
-    });
+  getTypes(): void {
+    this.fire.collection('types').valueChanges().subscribe((t: string[]) => this.types.next(t));
   }
-
-
-
+  getWeights(): void {
+    this.fire.collection('weights').valueChanges().subscribe((w: string[]) => this.weights.next(w));
+  }
   getGear(): void {
-    this.gear.next(this.fire.collection('gear'));
+    if (!this.gear.getValue()) {
+      this.fire.collection('gear').valueChanges().subscribe(g => {
+        this.gear.next(g);
+      });
+    }
   }
 
 }

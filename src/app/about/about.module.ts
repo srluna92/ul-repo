@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PackComponent } from './pack.component';
+import { AboutComponent } from './about.component';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { PackComponent } from './pack.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  declarations: [PackComponent],
-  exports: [PackComponent]
+  declarations: [AboutComponent],
+  exports: [AboutComponent]
 })
-export class PackModule { }
+export class AboutModule { }

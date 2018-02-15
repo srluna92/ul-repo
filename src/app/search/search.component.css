@@ -1,0 +1,7 @@
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+.mat-icon {
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FireService } from '../service/fire.service';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../service/form.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,15 @@ export class LoginComponent implements OnInit {
   p: string;
   loginControl: FormGroup;
   constructor(
-    private fireService: FireService,
+    private authService: AuthService,
     private formService: FormService
   ) { }
 
   login() {
-    this.fireService.login(this.u, this.p);
+    this.authService.login(this.u, this.p);
   }
   newUser() {
-    this.fireService.newUser(this.u, this.p);
+    this.authService.newUser(this.u, this.p);
   }
 
   ngOnInit() {

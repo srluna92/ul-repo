@@ -6,3 +6,6 @@
 .tab-filler {
   flex-grow: 1;
 }
+.mat-button {
+  font-weight: 500;
+}

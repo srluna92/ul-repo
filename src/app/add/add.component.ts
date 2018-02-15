@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
+import { FireService } from '../service/fire.service';
 
 @Component({
   selector: 'app-add',
@@ -17,23 +18,22 @@ export class AddComponent implements OnInit {
   types: string[];
   companiesList = ['Alabama', 'California'];
   ctrl = new FormControl();
+  results: any;
 
   constructor(
-    private formService: FormService
+    private formService: FormService,
+    private fireService: FireService
   ) { }
 
   ngOnInit() {
     this.addGroup = this.formService.newItemForm();
     this.companies = this.addGroup.controls['company'].valueChanges.pipe(
       startWith(''),
-      map(v => {
-        return this.companiesList.filter(o => o.toLowerCase().includes(v));
-      })
-    )
+      map(v => this.filter(this.companiesList, v))
+    );
   }
   filter(c: string[], v: string): string[] {
-    return c.filter(o =>
-      o.toLowerCase().indexOf(v ? v.toLowerCase() : '') === 0);
+    return c.filter(o => o.toLowerCase().indexOf(v ? v.toLowerCase() : ''));
   }
 
 }

@@ -1,19 +1,52 @@
 <!-- <mat-card> -->
   <mat-card-content>
     <mat-form-field>
-      <mat-select placeholder="Company" [(ngModel)]="s.company">
-        <mat-option value=""></mat-option>
+      <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="company">
+      <mat-autocomplete #cAuto="matAutocomplete">
         <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Type" [(ngModel)]="s.type">
-        <mat-option value=""></mat-option>
+      <input placeholder="Type" matInput [matAutocomplete]="tAuto" [(ngModel)]="type">
+      <mat-autocomplete #tAuto="matAutocomplete">
         <mat-option *ngFor="let t of types" [value]="t" [innerHTML]="t"></mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary">Search</button>
   </mat-card-actions>
+  <mat-card-content>
+    <mat-table #table [dataSource]="gear">
+      <ng-container matColumnDef="company">
+        <mat-header-cell *matHeaderCellDef>Company</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+      </ng-container>
+      <!-- <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef>Product Page</mat-header-cell>
+        <mat-cell *matCellDef="let element"><a src="element.url">
+            <mat-icon>open_in_new</mat-icon>
+        </a></mat-cell>
+      </ng-container> -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef>Factory Weight</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.weight}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="material">
+        <mat-header-cell *matHeaderCellDef>Material</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.material}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnHeader"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnHeader;"></mat-row>
+    </mat-table>
+  </mat-card-content>
 <!-- </mat-card> -->
