@@ -8,7 +8,7 @@ import { FireService } from '../service/fire.service';
 })
 export class SearchComponent implements OnInit {
 
-  companies: string[] = ['MLD', 'Katabatic'];
+  companies: string[];
   types: string[];
   gear: any[];
   s: any = {};
@@ -20,13 +20,12 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fireService.companies.asObservable().subscribe(c => this.columnHeader = c);
-    this.fireService.companies.asObservable().subscribe(t => this.types = t);
-    this.fireService.gear.asObservable().subscribe(g => {
-      this.gear = g;
-      console.log(g);
-    });
+    this.fireService.lists.companies.asObservable().subscribe(c => this.companies = c);
+    this.fireService.lists.types.asObservable().subscribe(t => this.types = t);
+    this.fireService.gear.asObservable().subscribe(g => this.gear = g);
     this.fireService.getGear();
+    this.fireService.getCompanies();
+    this.fireService.getTypes();
   }
 
 }
