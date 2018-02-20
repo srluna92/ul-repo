@@ -1,4 +1,4 @@
-<!-- <mat-card> -->
+<div class="margined">
   <mat-card-content>
     <mat-form-field>
       <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="company">
@@ -38,15 +38,19 @@
       </ng-container> -->
       <ng-container matColumnDef="weight">
         <mat-header-cell *matHeaderCellDef>Factory Weight</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.weight}}</mat-cell>
+        <mat-cell *matCellDef="let element">{{element.weight[element.w]}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="material">
         <mat-header-cell *matHeaderCellDef>Material</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.material}}</mat-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-select [(ngModel)]="element.w">
+            <mat-option *ngFor="let m of element.mat" [value]="m">{{m}}</mat-option>
+          </mat-select>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="columnHeader"></mat-header-row>
       <mat-row *matRowDef="let row; columns: columnHeader;"></mat-row>
     </mat-table>
   </mat-card-content>
-<!-- </mat-card> -->
+</div>

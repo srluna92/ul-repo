@@ -19,6 +19,7 @@ import { routes } from './app.routes';
 import { AboutModule } from './about/about.module';
 import { PackModule } from './pack/pack.module';
 import { SettingsModule } from './settings/settings.module';
+import { IdService } from './service/id.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { SettingsModule } from './settings/settings.module';
     PackModule,
     SettingsModule
   ],
-  providers: [FireService, FormService, AngularFirestore, AuthService],
+  providers: [FireService, FormService, AngularFirestore, AuthService, IdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

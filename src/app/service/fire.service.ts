@@ -4,10 +4,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FirebaseFirestore } from '@firebase/firestore-types';
 import { AuthService } from './auth.service';
 import { Lists } from '../model/lists';
+import { Gear } from '../model/gear';
 
 @Injectable()
 export class FireService {
-  gear = new BehaviorSubject<any>(null);
+  gear = new BehaviorSubject<Gear[]>(null);
   packs = new BehaviorSubject<any>(null);
   lists = new Lists();
 
@@ -33,22 +34,22 @@ export class FireService {
   }
   getGear(): void {
     if (!this.gear.getValue()) {
-      this.fire.collection('gear').valueChanges().subscribe(g => {
+      this.fire.collection('gear').valueChanges().subscribe((g: any) => {
         this.gear.next(g);
       });
     }
   }
   getPacks(): void {
-    this.fire.collection('packs').doc(this.auth.user.getValue().name).collection('packs').valueChanges().subscribe(p => {
+    this.fire.collection('packs').doc(this.auth.user.getValue().displayName).collection('packs').valueChanges().subscribe(p => {
       this.packs.next(p);
     });
   }
 
-  addGear(g: any): void {
-    this.fire.collection('gear').doc(g.name).set(g);
+  addGear(g: any, m?: boolean): void {
+    this.fire.collection('gear').doc(g.name).set(g, {merge: m});
   }
   addPack(p: any): void {
-    this.fire.collection('packs').doc(this.auth.user.getValue().name).collection('packs').doc(p.name).set(p);
+    this.fire.collection('packs').doc(this.auth.user.getValue().displayName).collection('packs').doc(p.name).set(p);
   }
   addType(s: string[]): void {
     this.fire.collection('lists').doc('types').update({list: s});
