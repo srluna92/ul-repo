@@ -7,6 +7,8 @@ import {startWith} from 'rxjs/operators/startWith';
 import { FireService } from '../service/fire.service';
 import { IdService } from '../service/id.service';
 import { forEach } from '@firebase/util';
+import { Gear } from '../model/gear';
+import { Lists } from '../model/lists';
 
 @Component({
   selector: 'app-add',
@@ -15,53 +17,40 @@ import { forEach } from '@firebase/util';
 })
 export class AddComponent implements OnInit {
 
-  addGroup: FormGroup;
-  companies: Observable<string[]>;
-  types: Observable<string[]>;
-  weights: Observable<string[]>;
-  g: any;
+  g = new Gear();
+  gList: Gear[];
+  group: FormGroup;
+  weights = new Array<string>();
+  wVal = new Array<string>();
+  companies = new Observable<string[]>();
+  types = new Observable<string[]>();
 
   constructor(
-    private formService: FormService,
     private fireService: FireService,
+    private formService: FormService,
     private idService: IdService
   ) { }
 
-  addItem(): void {
-    let newItem = true;
-    const filteredGear = this.fireService.gear.getValue().filter(f => {
-      return f.name === this.g.name && f.company === this.g.company;
-    });
-    for (const i in filteredGear) {
-      if (filteredGear[i].material === this.g.material) {
-        newItem = false;
-        break;
-      }
-    }
-
-    // if (!newItem) {
-    //   this.g.id = this.idService.createId(this.fireService.gear.getValue().length);
-    //   this.fireService.addGear(this.g);
-    // }
-  }
-
   ngOnInit() {
-    this.addGroup = this.formService.newItemForm();
-    this.companies = this.addGroup.controls['company'].valueChanges.pipe(
+    this.fireService.gear.asObservable().subscribe(g => this.gList = g);
+    this.group = this.formService.newItemForm();
+    this.fireService.lists.weights.asObservable().subscribe(w => {
+      forEach(w, i => {
+        this.weights.push(i);
+        this.wVal.push(w[i]);
+      });
+    });
+    this.fireService.getWeights();
+    this.companies = this.group.controls['company'].valueChanges.pipe(
       startWith(''),
-      map(v => this.filter(this.fireService.lists.companies.getValue(), v))
+      map(c => this.filter(this.fireService.lists.companies.getValue(), c))
     );
-    this.types = this.addGroup.controls['type'].valueChanges.pipe(
+    this.types = this.group.controls['type'].valueChanges.pipe(
       startWith(''),
-      map(v => this.filter(this.fireService.lists.types.getValue(), v))
-    );
-    this.weights = this.addGroup.controls['weights'].valueChanges.pipe(
-      startWith(''),
-      map(v => this.filter(this.fireService.lists.weights.getValue(), v))
+      map(c => this.filter(this.fireService.lists.types.getValue(), c))
     );
   }
-  filter(c: string[], v: string): string[] {
-    return c ? c.filter(o => o.toLowerCase().indexOf(v ? v.toLowerCase() : '')) : null;
+  filter(l: string[], v: string): string[] {
+    return l ? l.filter(o => o ? o.toLowerCase().includes(v ? v.toLowerCase() : '') : null) : null;
   }
-
 }

@@ -15,9 +15,12 @@ export class FormService {
   }
   newItemForm(): FormGroup  {
     return this.fb.group({
+      'name': ['', Validators.required],
       'company': ['', Validators.required],
       'type': ['', Validators.required],
-      'weights': ['', Validators.required]
+      'weight': ['', Validators.required],
+      'material': ['', Validators.required],
+      'url': ['', Validators.required]
     });
   }
 }

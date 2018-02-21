@@ -29,14 +29,12 @@ export class FireService {
   }
   getWeights(): void {
     if (!this.lists.weights.getValue()) {
-      this.fire.collection('lists').doc('weight').valueChanges().subscribe((w: any) => this.lists.weights.next(w.list));
+      this.fire.collection('lists').doc('weight').valueChanges().subscribe((w: any) => this.lists.weights.next(w));
     }
   }
   getGear(): void {
     if (!this.gear.getValue()) {
-      this.fire.collection('gear').valueChanges().subscribe((g: any) => {
-        this.gear.next(g);
-      });
+      this.fire.collection('gear').valueChanges().subscribe((g: any) => this.gear.next(g));
     }
   }
   getPacks(): void {
@@ -48,8 +46,8 @@ export class FireService {
   addGear(g: any, m?: boolean): void {
     this.fire.collection('gear').doc(g.name).set(g, {merge: m});
   }
-  addPack(p: any): void {
-    this.fire.collection('packs').doc(this.auth.user.getValue().displayName).collection('packs').doc(p.name).set(p);
+  addPack(p: any, m?: boolean): void {
+    this.fire.collection('packs').doc(this.auth.user.getValue().displayName).collection('packs').doc(p.name).set(p, {merge: m});
   }
   addType(s: string[]): void {
     this.fire.collection('lists').doc('types').update({list: s});
@@ -60,5 +58,4 @@ export class FireService {
   addWeights(w: string[]): void {
     this.fire.collection('lists').doc('weights').update({list: w});
   }
-
 }

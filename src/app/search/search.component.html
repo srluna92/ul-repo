@@ -30,12 +30,12 @@
         <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
       </ng-container>
-      <!-- <ng-container matColumnDef="url">
+      <ng-container matColumnDef="url">
         <mat-header-cell *matHeaderCellDef>Product Page</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a src="element.url">
+        <mat-cell *matCellDef="let element"><a [attr.src]="element.url">
             <mat-icon>open_in_new</mat-icon>
         </a></mat-cell>
-      </ng-container> -->
+      </ng-container>
       <ng-container matColumnDef="weight">
         <mat-header-cell *matHeaderCellDef>Factory Weight</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.weight[element.w]}}</mat-cell>

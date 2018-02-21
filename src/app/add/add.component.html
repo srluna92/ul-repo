@@ -1,31 +1,38 @@
-<mat-card-title></mat-card-title>
+<mat-card-title>Main Info</mat-card-title>
+<mat-card-content [formGroup]="group">
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="g.name" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Company" [(ngModel)]="g.company" formControlName="company" [matAutocomplete]="co">
+    <mat-autocomplete #co="matAutocomplete">
+      <mat-option *ngFor="let c of companies | async" [value]="c">{{c}}</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Product Type" [(ngModel)]="g.type" formControlName="type" [matAutocomplete]="type">
+    <mat-autocomplete #type="matAutocomplete">
+      <mat-option *ngFor="let t of types | async" [value]="t">{{t}}</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Weight" [(ngModel)]="g.weight" formControlName="weight">
+  </mat-form-field>
+  <mat-button-toggle-group [(ngModel)]="wIndex" [ngModelOptions]="{standalone: true}">
+    <mat-button-toggle *ngFor="let w of weights; let i = index" [value]="wVal[i]">{{w}}</mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-form-field>
+    <input matInput placeholder="Material" [(ngModel)]="g.material" formControlName="material">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Website" [(ngModel)]="g.url" formControlName="url">
+  </mat-form-field>
+</mat-card-content>
+<mat-card-title>Secondary Info</mat-card-title>
 <mat-card-content>
-  <mat-form-field>
-    <input placeholder="Company" matInput [matAutocomplete]="cAuto">
-    <mat-autocomplete #cAuto="matAutocomplete">
-      <mat-option *ngFor="let c of companies | async" [value]="c" [innerHTML]="c"></mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field>
-    <input placeholder="Type" matInput [matAutocomplete]="tAuto">
-    <mat-autocomplete #tAuto="matAutocomplete">
-      <mat-option *ngFor="let t of types" [value]="t" [innerHTML]="t"></mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Name">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Weight">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select>
-      <mat-option [value]="w.gram">g</mat-option>
-      <mat-option [value]="w.ounce">oz</mat-option>
-      <mat-option [value]="w.pount">lb</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Material">
-  </mat-form-field>
+
+</mat-card-content>
+<mat-card-title>Additional Info</mat-card-title>
+<mat-card-content>
+  
 </mat-card-content>
