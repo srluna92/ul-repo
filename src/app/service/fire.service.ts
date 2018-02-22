@@ -43,7 +43,7 @@ export class FireService {
     });
   }
 
-  addGear(g: any, m?: boolean): void {
+  addGear(g: Gear, m?: boolean): void {
     this.fire.collection('gear').doc(g.name).set(g, {merge: m});
   }
   addPack(p: any, m?: boolean): void {

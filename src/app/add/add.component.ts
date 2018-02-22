@@ -20,10 +20,11 @@ export class AddComponent implements OnInit {
   g = new Gear();
   gList: Gear[];
   group: FormGroup;
+  group2: FormGroup;
   weights = new Array<string>();
   wVal = new Array<string>();
-  companies = new Observable<string[]>();
-  types = new Observable<string[]>();
+  companies: string[];
+  types: string[];
 
   constructor(
     private fireService: FireService,
@@ -31,26 +32,24 @@ export class AddComponent implements OnInit {
     private idService: IdService
   ) { }
 
+  addItem(): void {
+    this.fireService.addGear(this.g, false);
+  }
+
   ngOnInit() {
     this.fireService.gear.asObservable().subscribe(g => this.gList = g);
     this.group = this.formService.newItemForm();
+    this.group2 = this.formService.newItemSecondary();
     this.fireService.lists.weights.asObservable().subscribe(w => {
       forEach(w, i => {
         this.weights.push(i);
         this.wVal.push(w[i]);
       });
     });
+    this.fireService.lists.companies.asObservable().subscribe(c => this.companies = c);
+    this.fireService.lists.types.asObservable().subscribe(t => this.types = t);
     this.fireService.getWeights();
-    this.companies = this.group.controls['company'].valueChanges.pipe(
-      startWith(''),
-      map(c => this.filter(this.fireService.lists.companies.getValue(), c))
-    );
-    this.types = this.group.controls['type'].valueChanges.pipe(
-      startWith(''),
-      map(c => this.filter(this.fireService.lists.types.getValue(), c))
-    );
-  }
-  filter(l: string[], v: string): string[] {
-    return l ? l.filter(o => o ? o.toLowerCase().includes(v ? v.toLowerCase() : '') : null) : null;
+    this.fireService.getTypes();
+    this.fireService.getCompanies();
   }
 }
