@@ -57,6 +57,6 @@ export class SearchComponent implements OnInit {
     } else {
       this.filter[n] = v;
     }
-    this.filteredGear = this.multiFilterPipe.transform(this.gear, this.filter);
+    this.filteredGear = this.multiFilterPipe.transform(this.gear, this.filter, op);
   }
 }
