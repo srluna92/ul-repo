@@ -1,13 +1,13 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z6">
   <!-- <span>Ultralight Repo</span> -->
-  <a mat-button routerLink="packs" *ngIf="user.name">Packs</a>
+  <a mat-button routerLink="packs" *ngIf="user.email">Packs</a>
   <a mat-button routerLink="search">Search</a>
-  <a mat-button routerLink="addNewItem" *ngIf="user.name">Add New Item</a>
+  <a mat-button routerLink="addNewItem" *ngIf="user.email">Add New Item</a>
   <span class="tab-filler"></span>
   <button mat-icon-button routerLink="settings"><mat-icon>settings</mat-icon></button>
   <a mat-button routerLink="about">About</a>
-  <button mat-button (click)="logout()" *ngIf="user.name">Logout</button>
-  <mat-expansion-panel style="z-index: 9999" (opened)="panel=true" (closed)="panel=false" [style.margin-top.px]="panel ? 195:0" disabled="true" [expanded]="extend" *ngIf="!user.name">
+  <button mat-button (click)="logout()" *ngIf="user.email">Logout</button>
+  <mat-expansion-panel (opened)="panel=true" (closed)="panel=false" [style.margin-top.px]="panel ? 170:0" disabled="true" [expanded]="extend" *ngIf="!user.email" class="colorless">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <button mat-button (click)="extend = !extend">Login</button>

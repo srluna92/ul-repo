@@ -10,19 +10,20 @@ export class AuthService {
   loginError = new BehaviorSubject<any>({});
   constructor() { }
 
-  login(u: string, p: string) {
+  login(u: string, p: string): boolean {
     firebase.auth().signInWithEmailAndPassword(u, p).then(s => {
-      console.log(s);
+      this.user.next(s);
+      return true;
     }).catch(e => {
-      console.log(e);
-      this.loginError = e;
+      this.loginError.next(e);
     });
+    return false;
   }
   newUser(u: string, p: string) {
     firebase.auth().createUserWithEmailAndPassword(u, p).then(s => {
-
+      this.user.next(s);
     }).catch(e => {
-      this.loginError = e;
+      this.loginError.next(e);
     });
   }
   logout() {

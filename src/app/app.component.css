@@ -13,3 +13,23 @@
   background-color: #3f51b5;
   color: rgb(250, 250, 250);
 }
+.colorless {
+  background: none;
+  z-index: 9999;
+}
+.mat-panel-header {
+  color: #fff;
+}
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
+}
+.mat-expansion-panel-header[aria-disabled=true] {
+  color: #fff !important;
+}
+.mat-sidenav-content {
+  padding: 15px;
+}
+.mat-elevation-z6 {
+  z-index: 2;
+  position: relative;
+}

@@ -1,8 +1,10 @@
 export class Gear {
   name: string;
   company: string;
-  weight:  any;
-  material: string;
+  material: {
+    weight: string,
+    url: string
+  }[];
   load: number;
   type: string;
   volume: number;

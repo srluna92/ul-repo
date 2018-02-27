@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormService } from '../service/form.service';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
-import { FireService } from '../service/fire.service';
-import { IdService } from '../service/id.service';
+import { FireService, FormService } from '../service/service-index';
 import { forEach } from '@firebase/util';
 import { Gear } from '../model/gear';
 import { Lists } from '../model/lists';
@@ -28,8 +26,7 @@ export class AddComponent implements OnInit {
 
   constructor(
     private fireService: FireService,
-    private formService: FormService,
-    private idService: IdService
+    private formService: FormService
   ) { }
 
   addItem(): void {

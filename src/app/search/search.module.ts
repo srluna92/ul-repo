@@ -4,6 +4,7 @@ import { SearchComponent } from './search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MultifilterPipe } from '../pipe/multifilter.pipe';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  declarations: [SearchComponent],
+  declarations: [SearchComponent, MultifilterPipe],
   exports: [SearchComponent]
 })
 export class SearchModule { }

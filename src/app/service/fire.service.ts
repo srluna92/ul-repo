@@ -11,6 +11,7 @@ export class FireService {
   gear = new BehaviorSubject<Gear[]>(null);
   packs = new BehaviorSubject<any>(null);
   lists = new Lists();
+  packCount = new BehaviorSubject<any>(null);
 
   constructor(
     private fire: AngularFirestore,
@@ -38,16 +39,18 @@ export class FireService {
     }
   }
   getPacks(): void {
-    this.fire.collection('packs').doc(this.auth.user.getValue().displayName).collection('packs').valueChanges().subscribe(p => {
-      this.packs.next(p);
-    });
+    this.fire.collection('packs').doc(this.auth.user.getValue().email).collection('packs').valueChanges()
+      .subscribe(p => this.packs.next(p));
+  }
+  getPacksCount(): void {
+    this.fire.collection('packs').valueChanges().subscribe(c => this.packCount.next(c.length));
   }
 
   addGear(g: Gear, m?: boolean): void {
     this.fire.collection('gear').doc(g.name).set(g, {merge: m});
   }
   addPack(p: any, m?: boolean): void {
-    this.fire.collection('packs').doc(this.auth.user.getValue().displayName).collection('packs').doc(p.name).set(p, {merge: m});
+    this.fire.collection('packs').doc(this.auth.user.getValue().email).collection('packs').doc(p.name).set(p, {merge: m});
   }
   addType(s: string[]): void {
     this.fire.collection('lists').doc('types').update({list: s});

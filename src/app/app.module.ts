@@ -1,30 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { environment } from '../environments/environment';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from 'angularfire2';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
-import { environment } from '../environments/environment';
-import { FireService } from './service/fire.service';
-import { FormService } from './service/form.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from 'angularfire2';
+import { PreloadAllModules, RouterModule } from '@angular/router';
+import { routes } from './app.routes';
 import { LoginModule } from './login/login.module';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { SearchModule } from './search/search.module';
 import { AddModule } from './add/add.module';
-import { AuthService } from './service/auth.service';
-import { RouterModule, PreloadAllModules } from '@angular/router';
-import { routes } from './app.routes';
 import { AboutModule } from './about/about.module';
 import { PackModule } from './pack/pack.module';
 import { SettingsModule } from './settings/settings.module';
-import { IdService } from './service/id.service';
+import { FireService, FormService, AuthService, IdService, GuardService } from './service/service-index';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import * as firebase from 'firebase';
+import { MultifilterPipe } from './pipe/multifilter.pipe';
 
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +38,10 @@ import { IdService } from './service/id.service';
     AddModule,
     AboutModule,
     PackModule,
-    SettingsModule
+    SettingsModule,
+    AngularFirestoreModule,
   ],
-  providers: [FireService, FormService, AngularFirestore, AuthService, IdService],
+  providers: [FireService, FormService, AuthService, IdService, GuardService, MultifilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 <div class="margined">
   <mat-card-content>
     <mat-form-field>
-      <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="company">
+      <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="company" (keyup)="applyFilter('company', $event.target.value)">
       <mat-autocomplete #cAuto="matAutocomplete">
         <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
       </mat-autocomplete>
@@ -16,8 +16,8 @@
   <mat-card-actions>
     <button mat-raised-button color="primary">Search</button>
   </mat-card-actions>
-  <mat-card-content>
-    <mat-table #table [dataSource]="gear">
+  <!-- <mat-card-content>
+    <mat-table #table [dataSource]="ds">
       <ng-container matColumnDef="company">
         <mat-header-cell *matHeaderCellDef>Company</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
@@ -32,13 +32,15 @@
       </ng-container>
       <ng-container matColumnDef="url">
         <mat-header-cell *matHeaderCellDef>Product Page</mat-header-cell>
-        <mat-cell *matCellDef="let element"><a [attr.src]="element.url">
+        <mat-cell *matCellDef="let element">
+          <a [attr.href]="element.material[element.w].url" target="_blank">
             <mat-icon>open_in_new</mat-icon>
-        </a></mat-cell>
+          </a>
+        </mat-cell>
       </ng-container>
       <ng-container matColumnDef="weight">
         <mat-header-cell *matHeaderCellDef>Factory Weight</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.weight[element.w]}}</mat-cell>
+        <mat-cell *matCellDef="let element">{{element.material[element.w].weight}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="material">
         <mat-header-cell *matHeaderCellDef>Material</mat-header-cell>
@@ -48,9 +50,38 @@
           </mat-select>
         </mat-cell>
       </ng-container>
-
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.material[element.w].price}}</mat-cell>
+      </ng-container>
       <mat-header-row *matHeaderRowDef="columnHeader"></mat-header-row>
       <mat-row *matRowDef="let row; columns: columnHeader;"></mat-row>
     </mat-table>
+  </mat-card-content> -->
+  <mat-card-content>
+    <div class="mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell header-cell">Name</div>
+        <div class="mat-header-cell header-cell">Company</div>
+        <div class="mat-header-cell header-cell">Type</div>
+        <div class="mat-header-cell header-cell">Material</div>
+        <div class="mat-header-cell header-cell">Weight</div>
+        <div class="mat-header-cell header-cell">Product Page</div>
+        <div class="mat-header-cell header-cell">Price</div>
+      </div>
+      <div class="mat-row" *ngFor="let g of filteredGear">
+        <div class="mat-cell">{{g.name}}</div>
+        <div class="mat-cell">{{g.company}}</div>
+        <div class="mat-cell">{{g.type}}</div>
+        <div class="mat-cell">
+          <mat-select [(ngModel)]="g.w">
+            <mat-option *ngFor="let m of g.mat" [value]="m">{{m}}</mat-option>
+          </mat-select>
+        </div>
+        <div class="mat-cell">{{g.material[g.w].weight}}</div>
+        <div class="mat-cell"><a [attr.href]="g.material[g.w].url"><mat-icon>open_in_new</mat-icon></a></div>
+        <div class="mat-cell">{{g.material[g.w].price}}</div>
+      </div>
+    </div>
   </mat-card-content>
 </div>
