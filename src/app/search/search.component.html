@@ -1,63 +1,50 @@
 <div class="margined">
   <mat-card-content>
     <mat-form-field>
-      <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="company" (keyup)="applyFilter('company', $event.target.value)">
+      <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="company" (ngModelChange)="applyFilter('company', $event)">
       <mat-autocomplete #cAuto="matAutocomplete">
         <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
       </mat-autocomplete>
     </mat-form-field>
     <mat-form-field>
-      <input placeholder="Type" matInput [matAutocomplete]="tAuto" [(ngModel)]="type">
+      <input placeholder="Type" matInput [matAutocomplete]="tAuto" [(ngModel)]="type" (ngModelChange)="applyFilter('type', $event)">
       <mat-autocomplete #tAuto="matAutocomplete">
         <mat-option *ngFor="let t of types" [value]="t" [innerHTML]="t"></mat-option>
       </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="Material" matInput [(ngModel)]="material" (ngModelChange)="applyFilter('material', $event)">
+    </mat-form-field>
+    <mat-form-field fxFlex="4">
+      <mat-select [(ngModel)]="w_op" (ngModelChange)="applyFilter('weight', weight, $event, true)">
+        <mat-option></mat-option>
+        <mat-option value="===">=</mat-option>
+        <mat-option value="&#62;">&#62;</mat-option>
+        <mat-option value="&#60;">&#60;</mat-option>
+        <mat-option value="&#62;=">&#62;=</mat-option>
+        <mat-option value="&#60;=">&#60;=</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="Weight" matInput type="number" [(ngModel)]="weight" (ngModelChange)="applyFilter('weight', $event, w_op, true)">
+    </mat-form-field>
+    <mat-form-field fxFlex="4">
+      <mat-select [(ngModel)]="p_op" (ngModelChange)="applyFilter('price', price, $event, true)">
+        <mat-option></mat-option>
+        <mat-option value="===" selected="true" >=</mat-option>
+        <mat-option value="&#62;">&#62;</mat-option>
+        <mat-option value="&#60;">&#60;</mat-option>
+        <mat-option value="&#62;=">&#62;=</mat-option>
+        <mat-option value="&#60;=">&#60;=</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="Price" matInput [(ngModel)]="price" (ngModelChange)="applyFilter('price', $event, p_op, true)">
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary">Search</button>
   </mat-card-actions>
-  <!-- <mat-card-content>
-    <mat-table #table [dataSource]="ds">
-      <ng-container matColumnDef="company">
-        <mat-header-cell *matHeaderCellDef>Company</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.company}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="type">
-        <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="url">
-        <mat-header-cell *matHeaderCellDef>Product Page</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <a [attr.href]="element.material[element.w].url" target="_blank">
-            <mat-icon>open_in_new</mat-icon>
-          </a>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef>Factory Weight</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.material[element.w].weight}}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="material">
-        <mat-header-cell *matHeaderCellDef>Material</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <mat-select [(ngModel)]="element.w">
-            <mat-option *ngFor="let m of element.mat" [value]="m">{{m}}</mat-option>
-          </mat-select>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.material[element.w].price}}</mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="columnHeader"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnHeader;"></mat-row>
-    </mat-table>
-  </mat-card-content> -->
   <mat-card-content>
     <div class="mat-table">
       <div class="mat-header-row">

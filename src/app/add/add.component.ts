@@ -16,7 +16,6 @@ import { Lists } from '../model/lists';
 export class AddComponent implements OnInit {
 
   g = new Gear();
-  gList: Gear[];
   group: FormGroup;
   group2: FormGroup;
   weights = new Array<string>();
@@ -34,7 +33,6 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fireService.gear.asObservable().subscribe(g => this.gList = g);
     this.group = this.formService.newItemForm();
     this.group2 = this.formService.newItemSecondary();
     this.fireService.lists.weights.asObservable().subscribe(w => {

@@ -4,6 +4,8 @@ import { Gear } from '../model/gear';
 import { forEach } from '@firebase/util';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MultifilterPipe } from '../pipe/multifilter.pipe';
+
+const opReg = /[^=><]/g;
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -51,12 +53,14 @@ export class SearchComponent implements OnInit {
     }
     return n;
   }
-  applyFilter(n: string, v: string, op?: string): void {
-    if (!v && this.filter[n]) {
-      delete this.filter[n];
-    } else {
-      this.filter[n] = v;
+  applyFilter(n: string, v: string, op?: string, needsOp?: boolean): void {
+    if (needsOp && !op) {
+      return;
     }
-    this.filteredGear = this.multiFilterPipe.transform(this.gear, this.filter, op);
+    this.filter[n] = {
+      val: v,
+      oper: op ? op.replace(opReg, '') : null
+    };
+    this.filteredGear = this.multiFilterPipe.transform(this.gear, this.filter);
   }
 }
