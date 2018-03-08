@@ -1,0 +1,49 @@
+<mat-card-content>
+  <mat-card-title>
+    Add a Discount
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <input placeholder="Discount Description" matInput [(ngModel)]="dis.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="Company" matInput [matAutocomplete]="cAuto" [(ngModel)]="dis.company">
+      <mat-autocomplete #cAuto="matAutocomplete">
+        <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="Code" matInput [(ngModel)]="dis.code">
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="Start Date" matInput type="date" [(ngModel)]="dis.start">
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="End Date" matInput type="date" [(ngModel)]="dis.end">
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="addDiscount()">Add</button>
+  </mat-card-actions>
+  <mat-card-content>
+    <mat-card-content>
+      <mat-checkbox [(ngModel)]="old" (click)="filterDiscounts('end', old)">Show old discounts</mat-checkbox>
+    </mat-card-content>
+    <div class="mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell header-cell">Discount</div>
+        <div class="mat-header-cell header-cell">Company</div>
+        <div class="mat-header-cell header-cell">Code</div>
+        <div class="mat-header-cell header-cell">Start Date</div>
+        <div class="mat-header-cell header-cell">End Date</div>
+      </div>
+      <div class="mat-row" *ngFor="let d of filteredDiscounts">
+        <div class="mat-cell">{{d.name}}</div>
+        <div class="mat-cell">{{d.company}}</div>
+        <div class="mat-cell">{{d.code}}</div>
+        <div class="mat-cell">{{d.start}}</div>
+        <div class="mat-cell">{{d.end}}</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card-content>

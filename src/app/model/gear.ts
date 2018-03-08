@@ -1,10 +1,11 @@
-import { Material } from './material';
-
 export class Gear {
   name: string;
   company: string;
-  material: Material[];
+  material: any;
   load: number;
   type: string;
   volume: number;
+  price: string;
+  weight: string;
+  url: string;
 }

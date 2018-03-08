@@ -10,14 +10,12 @@ export class AuthService {
   loginError = new BehaviorSubject<any>({});
   constructor() { }
 
-  login(u: string, p: string): boolean {
+  login(u: string, p: string): void {
     firebase.auth().signInWithEmailAndPassword(u, p).then(s => {
       this.user.next(s);
-      return true;
     }).catch(e => {
       this.loginError.next(e);
     });
-    return false;
   }
   newUser(u: string, p: string) {
     firebase.auth().createUserWithEmailAndPassword(u, p).then(s => {
@@ -28,5 +26,6 @@ export class AuthService {
   }
   logout() {
     firebase.auth().signOut();
+    this.user.next(new User());
   }
 }

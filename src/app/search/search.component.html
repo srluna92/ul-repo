@@ -60,14 +60,10 @@
         <div class="mat-cell">{{g.name}}</div>
         <div class="mat-cell">{{g.company}}</div>
         <div class="mat-cell">{{g.type}}</div>
-        <div class="mat-cell">
-          <mat-select [(ngModel)]="g.w">
-            <mat-option *ngFor="let m of g.mat" [value]="m">{{m}}</mat-option>
-          </mat-select>
-        </div>
-        <div class="mat-cell">{{g.material[g.w].weight}}</div>
-        <div class="mat-cell"><a [attr.href]="g.material[g.w].url"><mat-icon>open_in_new</mat-icon></a></div>
-        <div class="mat-cell">{{g.material[g.w].price}}</div>
+        <div class="mat-cell">{{g.material}}</div>
+        <div class="mat-cell">{{g.weight}}</div>
+        <div class="mat-cell"><a [attr.href]="g.url"><mat-icon>open_in_new</mat-icon></a></div>
+        <div class="mat-cell">${{g.price}}</div>
       </div>
     </div>
   </mat-card-content>

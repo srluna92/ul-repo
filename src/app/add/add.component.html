@@ -1,113 +1,58 @@
-<mat-card-content fxLayout="column">
-  <mat-card-content [formGroup]="group">
-    <div fxLayout="row">
-      <mat-card-title>
-        Main Info
-        <mat-divider></mat-divider>
-      </mat-card-title>
-    </div>
-    <mat-card-content fxLayout="row">
-      <mat-form-field fxFlex="30">
-        <input matInput placeholder="Name" [(ngModel)]="g.name" formControlName="name">
-      </mat-form-field>
-      <mat-form-field fxFlex="30" fxFlexOffset="2">
-        <input matInput placeholder="Company" [(ngModel)]="g.company" formControlName="company" [matAutocomplete]="co">
-        <mat-autocomplete #co="matAutocomplete">
-          <mat-option *ngFor="let c of companies" [value]="c">{{c}}</mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-content fxLayout="row">
-      <mat-form-field fxFlex="30">
-        <input matInput placeholder="Product Type" [(ngModel)]="g.type" formControlName="type" [matAutocomplete]="type">
-        <mat-autocomplete #type="matAutocomplete">
-          <mat-option *ngFor="let t of types" [value]="t">{{t}}</mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field fxFlex="19" fxFlexOffset="2">
-        <input matInput placeholder="Factory Weight" [(ngModel)]="g.weight" formControlName="weight">
-      </mat-form-field>
-      <mat-button-toggle-group [(ngModel)]="wIndex" [ngModelOptions]="{standalone: true}" fxFlexOffset="1" [style.height.%]="100">
-        <mat-button-toggle *ngFor="let w of weights; let i = index" [value]="wVal[i]">{{w}}</mat-button-toggle>
-      </mat-button-toggle-group>
-    </mat-card-content>
-    <mat-card-content fxLayout="row">
-      <mat-form-field fxFlex="30">
-        <input matInput placeholder="Material" [(ngModel)]="g.material" formControlName="material">
-      </mat-form-field>
-      <mat-form-field fxFlex="30" fxFlexOffset="2">
-        <input matInput placeholder="Website" [(ngModel)]="g.url" formControlName="url">
-      </mat-form-field>
-    </mat-card-content>
+<mat-card-content>
+  <mat-card-title>New Item</mat-card-title>
+  <mat-card-content [formGroup]="group" fxLayout="row" fxLayout.xs="column">
+    <mat-form-field fxFlex="20" fxFlexOffset="5">
+      <input placeholder="Name" matInput [(ngModel)]="ng.name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field fxFlex="20">
+      <input placeholder="Company" matInput [(ngModel)]="ng.company" formControlName="company" [matAutocomplete]="co">
+      <mat-autocomplete #co="matAutocomplete">
+        <mat-option *ngFor="let c of companies" [value]="c" [innerHTML]="c"></mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field fxFlex="20">
+      <input placeholder="Type" matInput [(ngModel)]="ng.type" formControlName="type" [matAutocomplete]="ty">
+      <mat-autocomplete #ty="matAutocomplete">
+        <mat-option *ngFor="let t of types" [value]="t" [innerHTML]="t"></mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </mat-card-content>
-  <mat-card-content *ngIf="g.type==='backpack'" [formGroup]="group2">
-    <div fxLayout="row">
-      <mat-card-title>
-        Type Info
-        <mat-divider></mat-divider>
-      </mat-card-title>
-    </div>
-    <mat-card-content fxLayout="row">
-      <mat-form-field fxFlex="18">
-        <input matInput placeholder="Load Weight" [(ngModel)]="g.load" formControlName="load">
-      </mat-form-field>
-      <mat-button-toggle-group [(ngModel)]="lIndex" [ngModelOptions]="{standalone: true}" fxFlexOffset="1" [style.height.%]="100">
-        <mat-button-toggle *ngFor="let w of weights; let i = index" [value]="wVal[i]">{{w}}</mat-button-toggle>
-      </mat-button-toggle-group>
-      <mat-form-field fxFlex="30" fxFlexOffset="2">
-        <input matInput placeholder="Volume" type="number" [(ngModel)]="g.volume" formControlName="volume">
-      </mat-form-field>
-    </mat-card-content>
+  <mat-card-content fxLayout="row" fxLayout.xs="column" [formGroup]="group">
+    <mat-form-field *ngIf="ng.type==='backpack'" fxFlex="20" fxFlexOffset="5">
+      <input placeholder="Load Weight" matInput [(ngModel)]="ng.load" formControlName="load">
+    </mat-form-field>
+    <mat-form-field *ngIf="ng.type==='backpack'" fxFlex="20">
+      <input placeholder="Volume" matInput [(ngModel)]="ng.volume" formControlName="volume">
+    </mat-form-field>
+    <mat-form-field *ngIf="ng.type==='quilt'||ng.type==='jacket'" fxFlex="20" fxFlexOffset="5">
+      <input matInput placeholder="Fill" [(ngModel)]="ng.fill" formControlName="fill">
+    </mat-form-field>
+    <mat-form-field *ngIf="ng.type==='quilt'||ng.type==='jacket'" fxFlex="20">
+      <input matInput placeholder="Temperature Range" [(ngModel)]="ng.tempRange" formControlName="tempRange">
+    </mat-form-field>
+    <mat-form-field *ngIf="ng.type==='quilt'" fxFlex="20">
+      <input matInput placeholder="R-value" [(ngModel)]="ng.rVal" formControlName="rVal">
+    </mat-form-field>
   </mat-card-content>
-  <mat-card-content *ngIf="g.type==='quilt' || g.type==='sleepBag'" [formGroup]="group2">
-    <div fxLayout="row">
-      <mat-card-title>
-        Type Info
-        <mat-divider></mat-divider>
-      </mat-card-title>
-    </div>
-    <mat-card-content fxLayout="row">
+  <mat-card-title>Material(s) <button mat-icon-button (click)="newMaterial()"><mat-icon>add</mat-icon></button></mat-card-title>
+  <mat-card-content fxLayout="column">
+    <mat-card-content *ngFor="let m of materials; let i = index" fxLayout="row" fxLayout.xs="column">
+      <button mat-icon-button (click)="materials.pop(m)" *ngIf="materials.length>1"><mat-icon color="warn">remove</mat-icon></button>
+      <mat-form-field fxFlex="20" fxFlexOffset="5">
+        <input placeholder="Material" matInput [(ngModel)]="matName[i]">
+      </mat-form-field>
       <mat-form-field fxFlex="20">
-        <input matInput placeholder="Fill" [(ngModel)]="g.fill" formControlName="fill">
+        <input placeholder="Factory Weight" matInput [(ngModel)]="m.weight" type="number">
       </mat-form-field>
-      <mat-form-field fxFlex="20" fxFlexOffset="2">
-        <input matInput placeholder="Temperature Range" [(ngModel)]="g.tempRange" formControlName="tempRange">
+      <mat-form-field fxFlex="20">
+        <input placeholder="Price" matInput [(ngModel)]="m.price">
       </mat-form-field>
-      <mat-form-field fxFlex="20" fxFlexOffset="2">
-        <input matInput placeholder="R-value" [(ngModel)]="g.rVal" formControlName="rVal">
+      <mat-form-field fxFlex="20">
+        <input placeholder="Product Page URL" matInput [(ngModel)]="m.url" type="url">
       </mat-form-field>
-    </mat-card-content>
-  </mat-card-content>
-  <mat-card-content *ngIf="g.type===''">
-    <div fxLayout="row">
-      <mat-card-title>
-        Type Info
-        <mat-divider></mat-divider>
-      </mat-card-title>
-    </div>
-    <mat-card-content fxLayout="row">
-      <mat-form-field fxFlex="30">
-        <input matInput placeholder="huh">
-      </mat-form-field>
-    </mat-card-content>
-  </mat-card-content>
-  <mat-card-content *ngIf="group.valid">
-    <div fxLayout="row">
-      <mat-card-title>
-        Personal Info
-        <mat-divider></mat-divider>
-      </mat-card-title>
-    </div>
-    <mat-card-content fxLayout="row">
-      <mat-form-field fxFlex="19">
-        <input matInput placeholder="Your Item's Weight" [(ngModel)]="g.weight" formControlName="weight">
-      </mat-form-field>
-      <mat-button-toggle-group [(ngModel)]="wIndex" [ngModelOptions]="{standalone: true}" fxFlexOffset="1" [style.height.%]="100">
-        <mat-button-toggle *ngFor="let w of weights; let i = index" [value]="wVal[i]">{{w}}</mat-button-toggle>
-      </mat-button-toggle-group>
     </mat-card-content>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="addItem()" color="primary" [disabled]="!group.valid">Add Item</button>
+    <button mat-raised-button color="primary" (click)="addItem()">Add</button>
   </mat-card-actions>
 </mat-card-content>

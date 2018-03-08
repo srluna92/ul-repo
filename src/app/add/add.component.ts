@@ -7,6 +7,7 @@ import { FireService, FormService } from '../service/service-index';
 import { forEach } from '@firebase/util';
 import { Gear } from '../model/gear';
 import { Lists } from '../model/lists';
+import { Material } from '../model/material';
 
 @Component({
   selector: 'app-add',
@@ -15,9 +16,12 @@ import { Lists } from '../model/lists';
 })
 export class AddComponent implements OnInit {
 
-  g = new Gear();
+  ng = new Gear();
+  materials = new Array<Material>();
+  matName = new Array<string>();
+
   group: FormGroup;
-  group2: FormGroup;
+
   weights = new Array<string>();
   wVal = new Array<string>();
   companies: string[];
@@ -29,12 +33,25 @@ export class AddComponent implements OnInit {
   ) { }
 
   addItem(): void {
-    this.fireService.addGear(this.g, false);
+    const gear = new Array<Gear>();
+    for (const i in this.materials) {
+      if (this.matName[i] && this.materials[i]) {
+        this.ng.material = this.matName[i];
+        this.ng.price = this.materials[i].price;
+        this.ng.url = this.materials[i].url;
+        this.ng.weight = this.materials[i].weight;
+        gear.push(this.ng);
+      }
+    }
+    this.fireService.addGear(gear, false);
+  }
+
+  newMaterial() {
+    this.materials.push(new Material());
   }
 
   ngOnInit() {
     this.group = this.formService.newItemForm();
-    this.group2 = this.formService.newItemSecondary();
     this.fireService.lists.weights.asObservable().subscribe(w => {
       forEach(w, i => {
         this.weights.push(i);
@@ -46,5 +63,6 @@ export class AddComponent implements OnInit {
     this.fireService.getWeights();
     this.fireService.getTypes();
     this.fireService.getCompanies();
+    this.materials.push(new Material());
   }
 }

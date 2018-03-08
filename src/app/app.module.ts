@@ -18,6 +18,8 @@ import { FireService, FormService, AuthService, IdService, GuardService } from '
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { MultifilterPipe } from './pipe/multifilter.pipe';
+import { DiscountModule } from './discount/discount.module';
+import { AdminModule } from './admin/admin.module';
 
 firebase.initializeApp(environment.firebase);
 
@@ -39,6 +41,8 @@ firebase.initializeApp(environment.firebase);
     AboutModule,
     PackModule,
     SettingsModule,
+    DiscountModule,
+    AdminModule,
     AngularFirestoreModule,
   ],
   providers: [FireService, FormService, AuthService, IdService, GuardService, MultifilterPipe],

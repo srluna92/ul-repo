@@ -4,7 +4,18 @@
 <mat-card-content>
   <mat-tab-group>
     <mat-tab *ngFor="let p of packs" label="{{p.name}}">
-      {{p.name}}
+      <mat-card-content>
+        <mat-card-title>
+          <input placeholder="Pack Name" matInput [(ngModel)]="p.name">
+        </mat-card-title>
+        <mat-card-subtitle>
+          <mat-form-field>
+            <textarea matInput matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="15" 
+            placeholder="Description:" [(ngModel)]="p.description"></textarea>
+          </mat-form-field>
+        </mat-card-subtitle>
+
+      </mat-card-content>
     </mat-tab>
   </mat-tab-group>
 </mat-card-content>

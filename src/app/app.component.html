@@ -16,13 +16,20 @@
     <app-login></app-login>
   </mat-expansion-panel>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+<mat-sidenav-container style="margin-bottom: 56px;">
+  <!-- <mat-sidenav mode="side" opened>
     <mat-toolbar class="sidenav">
       Test
     </mat-toolbar>
-  </mat-sidenav>
+  </mat-sidenav> -->
   <mat-sidenav-content style="height: -webkit-fill-available;">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<mat-toolbar color="primary" class="mobileFooter" fxLayout="row">
+  <button mat-icon-button routerLink="settings"><mat-icon>settings</mat-icon></button>
+  <button mat-icon-button routerLink="search"><mat-icon>search</mat-icon></button>
+  <button mat-icon-button routerLink="login" *ngIf="!user.email"><mat-icon>perm_identity</mat-icon></button>
+  <button mat-icon-button (click)="logout()" *ngIf="user.email"><mat-icon>exit_to_app</mat-icon></button>
+  
+</mat-toolbar>

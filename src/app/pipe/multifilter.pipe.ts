@@ -13,18 +13,7 @@ export class MultifilterPipe implements PipeTransform {
         if (!filter[k].oper) {
           return !i[k].includes(filter[k].val);
         } else {
-          if ('material|weight|load'.includes(k)) {
-            let r = true;
-            forEach(i.material, m => {
-              if (('weight|load'.includes(k) && eval(i.material[m][k] + filter[k].oper + filter[k].val))
-                || ('material'.includes(k) && m.includes(filter[k].val))) {
-                r = false;
-              }
-            });
-            return r;
-          } else {
-            return !eval(i[k] + filter[k].oper.replace(opReg, '') + filter[k].val);
-          }
+          return !eval(i[k] + filter[k].oper.replace(opReg, '') + filter[k].val);
         }
       });
     }) : items;

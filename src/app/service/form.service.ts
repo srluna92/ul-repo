@@ -22,15 +22,16 @@ export class FormService {
       'weight': ['', Validators.required],
       'material': ['', Validators.required],
       'url': ['', [Validators.required, Validators.pattern(webPattern)]],
-    });
-  }
-  newItemSecondary(): FormGroup {
-    return this.fb.group({
       'load': ['', Validators.required],
       'volume': ['', Validators.required],
       'fill': ['', Validators.required],
       'tempRange': ['', Validators.required],
       'rVal': ['', Validators.required]
+    });
+  }
+  newItemSecondary(): FormGroup {
+    return this.fb.group({
+
     });
   }
 }

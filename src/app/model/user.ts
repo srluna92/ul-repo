@@ -7,4 +7,5 @@ export class User implements UserInfo {
   providerId: string;
   uid: string;
   feedback: string[];
+  home: string | 'search';
 }

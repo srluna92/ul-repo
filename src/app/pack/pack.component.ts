@@ -9,15 +9,13 @@ import { FireService, IdService } from '../service/service-index';
 export class PackComponent implements OnInit {
 
   packs: any[];
-  pack: any;
   constructor(
     private fireService: FireService,
     private idService: IdService
   ) { }
 
   add() {
-    this.pack.id = this.idService.createId();
-    this.fireService.addPack(this.pack, false);
+    this.fireService.addPack({id: this.idService.createId()}, false);
   }
   ngOnInit() {
     this.fireService.packs.asObservable().subscribe(p => this.packs = p);
